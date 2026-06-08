@@ -5,610 +5,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tra cứu tuyển sinh – THPT Năng Khiếu</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f0f4f8;
-            color: #333;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #00234e, #003b82);
-            color: white;
-            padding: 22px 20px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .header h1 {
-            font-size: 1.4rem;
-            letter-spacing: 0.5px;
-        }
-
-        .header p {
-            font-size: 0.85rem;
-            opacity: 0.75;
-            margin-top: 4px;
-        }
-
-        .container {
-            max-width: 780px;
-            margin: 28px auto;
-            padding: 0 14px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 28px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 18px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .form-group {
-            flex: 1;
-            min-width: 180px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: #555;
-            margin-bottom: 6px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px 13px;
-            border: 1.5px solid #dde;
-            border-radius: 7px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #003b82;
-        }
-
-        button[type=submit] {
-            width: 100%;
-            margin-top: 18px;
-            padding: 12px;
-            background: #003b82;
-            color: white;
-            border: none;
-            border-radius: 7px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        button[type=submit]:hover:not(:disabled) {
-            background: #00234e;
-        }
-
-        button[type=submit]:disabled {
-            background: #9aaecc;
-            cursor: not-allowed;
-        }
-
-        .error-box {
-            background: #fff0f0;
-            border: 1px solid #f5c6c6;
-            border-radius: 8px;
-            padding: 13px 16px;
-            color: #c0392b;
-            font-size: 0.92rem;
-            margin-bottom: 18px;
-            display: none;
-        }
-
-        /* spinner */
-        .spinner {
-            display: none;
-            text-align: center;
-            padding: 30px;
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .spin {
-            display: inline-block;
-            width: 22px;
-            height: 22px;
-            border: 3px solid #ddd;
-            border-top-color: #003b82;
-            border-radius: 50%;
-            animation: rot 0.75s linear infinite;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
-        @keyframes rot {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* result */
-        .result-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            display: none;
-        }
-
-        .profile-header {
-            background: linear-gradient(135deg, #00234e, #0057c8);
-            color: white;
-            padding: 24px 28px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .profile-img {
-            width: 88px;
-            height: 88px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .profile-img-placeholder {
-            width: 88px;
-            height: 88px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            flex-shrink: 0;
-        }
-
-        .profile-info h2 {
-            font-size: 1.35rem;
-        }
-
-        .profile-info .reg {
-            font-size: 0.82rem;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-
-        .badge {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 3px 11px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 700;
-        }
-
-        .badge-green {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .badge-yellow {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .badge-red {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .result-body {
-            padding: 24px 28px;
-        }
-
-        .section {
-            margin-bottom: 24px;
-        }
-
-        .section-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #003b82;
-            border-bottom: 2px solid #dde8ff;
-            padding-bottom: 7px;
-            margin-bottom: 14px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-            gap: 12px;
-        }
-
-        .info-item label {
-            font-size: 0.75rem;
-            color: #999;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .info-item .val {
-            font-size: 0.93rem;
-            color: #222;
-        }
-
-        .grade-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .grade-chip {
-            background: #f0f4ff;
-            border: 1px solid #c8d8ff;
-            border-radius: 8px;
-            padding: 8px 14px;
-            text-align: center;
-            min-width: 80px;
-        }
-
-        .grade-chip .yr {
-            font-size: 0.72rem;
-            color: #777;
-        }
-
-        .grade-chip .gv {
-            font-weight: 700;
-            color: #003b82;
-            font-size: 0.9rem;
-            margin-top: 2px;
-        }
-
-        .tag {
-            display: inline-block;
-            background: #e8f0fe;
-            border: 1px solid #c2d4fb;
-            border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 0.83rem;
-            color: #2a5cbf;
-            margin: 3px;
-        }
-
-        .elective {
-            border-left: 3px solid #f59e0b;
-            background: #fffbeb;
-            border-radius: 0 7px 7px 0;
-            padding: 10px 14px;
-            margin-bottom: 8px;
-        }
-
-        .elective .el-lvl {
-            font-size: 0.75rem;
-            color: #92400e;
-            font-weight: 600;
-        }
-
-        .elective .el-name {
-            font-weight: 700;
-            color: #451a03;
-            margin-top: 2px;
-        }
-
-        .fee-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 0.93rem;
-        }
-
-        .fee-row:last-child {
-            border-bottom: none;
-        }
-
-        .fee-row .fl {
-            color: #666;
-        }
-
-        .fee-amount {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .fee-paid {
-            color: #16a34a;
-        }
-
-        .fee-pending {
-            color: #d97706;
-        }
-
-        .result-banner {
-            margin: 0 28px 0; padding: 20px 24px;
-            border-radius: 10px; display: flex; align-items: center; gap: 16px;
-            margin-bottom: 20px; margin-top: 20px;
-        }
-        .result-banner.dau {
-            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-            border: 2px solid #6ee7b7;
-        }
-        .result-banner.rot {
-            background: linear-gradient(135deg, #fee2e2, #fecaca);
-            border: 2px solid #fca5a5;
-        }
-        .result-banner.pending {
-            background: #f8faff; border: 2px dashed #c0cfe8;
-        }
-        .result-banner .rb-icon { font-size: 2.2rem; line-height: 1; flex-shrink: 0; }
-        .result-banner .rb-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #666; }
-        .result-banner .rb-main { font-size: 1.5rem; font-weight: 800; margin-top: 2px; }
-        .result-banner.dau .rb-main { color: #065f46; }
-        .result-banner.rot .rb-main { color: #991b1b; }
-        .result-banner.pending .rb-main { color: #94a3b8; font-size: 1.1rem; }
-        .result-banner .rb-score { font-size: 0.88rem; color: #065f46; margin-top: 3px; font-weight: 600; }
-
-        @media (max-width: 480px) {
-            .profile-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .result-body {
-                padding: 18px;
-            }
-        }
-    </style>
+    <link rel="icon" href="https://tuyensinh.ptnk.edu.vn/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="header">
-        <h1>Tra cứu thông tin tuyển sinh</h1>
-        <p>Trường THPT Năng Khiếu – Đại học Quốc gia TP.HCM</p>
+    <!-- ── TEMPLATES (không render) ─────────────────────────────── -->
+    <template id="tpl-grade-chip">
+        <div class="grade-chip">
+            <div class="yr"></div>
+            <div class="gv"></div>
+        </div>
+    </template>
+
+    <template id="tpl-elective">
+        <div class="elective">
+            <div class="el-lvl"></div>
+            <div class="el-name"></div>
+        </div>
+    </template>
+
+    <template id="tpl-score-row">
+        <tr>
+            <td class="sn"></td>
+            <td class="sv"></td>
+        </tr>
+    </template>
+
+    <!-- ── ANNOUNCEMENT OVERLAY ────────────────────────────────── -->
+    <div id="overlay">
+        <div class="confetti-wrap" id="confettiWrap"></div>
+        <div class="announce-box">
+            <div class="announce-emoji">🎊</div>
+            <div class="announce-title">ĐÃ CÔNG BỐ KẾT QUẢ!</div>
+            <p class="announce-sub">
+                Kết quả tuyển sinh THPT Năng Khiếu đã được công bố chính thức.<br>
+                Hãy nhập thông tin để tra cứu ngay!
+            </p>
+            <button class="announce-btn" onclick="closeAnnouncement()">Tra cứu ngay →</button>
+        </div>
     </div>
 
-    <div class="container">
+    <!-- ── HEADER ───────────────────────────────────────────────── -->
+    <header class="header">
+        <h1>Tra cứu thông tin tuyển sinh</h1>
+        <p>Trường THPT Năng Khiếu – Đại học Quốc gia TP.HCM</p>
+        <div id="pollChip">
+            <span class="dot"></span>
+            <span id="pollLabel">Đang theo dõi công bố điểm...</span>
+        </div>
+    </header>
+
+    <!-- ── MAIN ─────────────────────────────────────────────────── -->
+    <main class="container">
+
+        <!-- score stage status -->
+        <div id="stageStatus" class="stage-status" hidden>
+            <span id="stageIcon">⏳</span>
+            <span id="stageText"></span>
+            <span id="stageUpdated"></span>
+        </div>
+
+        <!-- search form -->
         <div class="card">
             <form id="searchForm">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cccd">Số CCCD / Số định danh</label>
-                        <input type="text" id="cccd" placeholder="VD: 074311006789" maxlength="20" autocomplete="off">
+                        <input type="text" id="cccd" placeholder="VD: 074311006619" maxlength="20" autocomplete="off"
+                            value="074311006619">
                     </div>
                     <div class="form-group">
                         <label for="regCode">Số báo danh</label>
-                        <input type="text" id="regCode" placeholder="VD: 262456" maxlength="10" autocomplete="off">
+                        <input type="text" id="regCode" placeholder="VD: 262466" maxlength="10" autocomplete="off"
+                            value="262466">
                     </div>
                 </div>
                 <button type="submit" id="submitBtn">Tra cứu</button>
             </form>
+            <div id="apiUrls" class="api-urls" hidden>
+                <div class="api-url-item">
+                    <span class="api-url-label">Tổng quan</span>
+                    <a id="urlStudent" class="api-url-link" target="_blank" rel="noopener"></a>
+                </div>
+                <div class="api-url-item">
+                    <span class="api-url-label">Chi tiết</span>
+                    <a id="urlScores" class="api-url-link" target="_blank" rel="noopener"></a>
+                </div>
+            </div>
         </div>
 
-        <div class="error-box" id="errorBox"></div>
+        <div class="error-box" id="errorBox" hidden></div>
         <div class="spinner" id="spinner"><span class="spin"></span>Đang tải thông tin...</div>
 
-        <div class="result-card" id="resultCard"></div>
-    </div>
+        <!-- ── RESULT CARD ─────────────────────────────────────── -->
+        <div class="result-card" id="resultCard" hidden>
 
-    <script>
-        const PROXIES = [
-            u => `https://corsproxy.io/?url=${encodeURIComponent(u)}`,
-            u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-            u => `https://corsproxy.io/?url=${encodeURIComponent(u)}&t=${Date.now()}`,
-        ];
+            <!-- result banners (only one visible at a time) -->
+            <div id="bannerDau" class="result-banner dau" hidden>
+                <div class="rb-icon">🎉</div>
+                <div>
+                    <div class="rb-label">Kết quả tuyển sinh</div>
+                    <div class="rb-main rb-class"></div>
+                    <div class="rb-score" hidden></div>
+                </div>
+            </div>
+            <div id="bannerRot" class="result-banner rot" hidden>
+                <div class="rb-icon">😔</div>
+                <div>
+                    <div class="rb-label">Kết quả tuyển sinh</div>
+                    <div class="rb-main">RỚT</div>
+                </div>
+            </div>
+            <div id="bannerPending" class="result-banner pending" hidden>
+                <div class="rb-icon">⏳</div>
+                <div>
+                    <div class="rb-label">Kết quả tuyển sinh</div>
+                    <div class="rb-main">Chưa có kết quả</div>
+                </div>
+            </div>
 
-        async function fetchData(url) {
-            // 1. direct (works if server allows CORS or same-origin)
-            try {
-                const r = await fetch(url, { mode: 'cors' });
-                if (r.ok) return r.json();
-            } catch { }
+            <!-- profile header -->
+            <div class="profile-header">
+                <img id="profileImg" class="profile-img" alt="Ảnh thí sinh" onerror="this.style.display='none'">
+                <div id="profilePlaceholder" class="profile-img-placeholder">👤</div>
+                <div class="profile-info">
+                    <h2 id="profileName"></h2>
+                    <p class="reg">Số báo danh: <strong id="profileReg"></strong></p>
+                    <p class="reg">CCCD: <strong id="profileCCCD"></strong></p>
+                    <span id="profileBadge" class="badge"></span>
+                </div>
+            </div>
 
-            // 2. try each proxy
-            for (const proxy of PROXIES) {
-                try {
-                    const r = await fetch(proxy(url));
-                    if (r.ok) {
-                        const text = await r.text();
-                        return JSON.parse(text);
-                    }
-                } catch { }
-            }
-            throw new Error('Không thể kết nối tới máy chủ. Vui lòng thử lại sau ít phút.');
-        }
+            <div class="result-body">
 
-        const GRADE_MAP = { excellent: 'Xuất sắc', good: 'Tốt', average: 'Khá', poor: 'Yếu' };
-        const GRADE_YEARS = ['Lớp 6', 'Lớp 7', 'Lớp 8', 'Lớp 9'];
-        const STATUS_MAP = { registered: 'Đã đăng ký', pending: 'Đang xét', approved: 'Đã duyệt', rejected: 'Từ chối' };
-
-        function g(v) { return GRADE_MAP[v] || v; }
-        function gender(v) { return v === 'female' ? 'Nữ' : v === 'male' ? 'Nam' : (v || '—'); }
-        function status(v) { return STATUS_MAP[v] || v; }
-        function money(n) { return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n); }
-        function badgeClass(s) {
-            return (s === 'registered' || s === 'approved') ? 'badge-green' :
-                s === 'pending' ? 'badge-yellow' : 'badge-red';
-        }
-
-        function addr(a) {
-            if (!a) return '—';
-            const parts = [a.ward?.fullName, a.district?.fullName, a.province?.fullName].filter(x => x?.trim());
-            return parts.join(', ') || '—';
-        }
-
-        function fmtDate(iso) {
-            if (!iso) return '—';
-            const d = new Date(iso);
-            const dd = String(d.getUTCDate()).padStart(2, '0');
-            const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
-            return `${dd}/${mm}/${d.getUTCFullYear()}`;
-        }
-
-        function render(d) {
-            const imgHtml = d.imageUrl
-                ? `<img class="profile-img" src="${d.imageUrl}" alt="Ảnh thí sinh" onerror="this.style.display='none'">`
-                : `<div class="profile-img-placeholder">👤</div>`;
-
-            const conducts = (d.conducts || []).map((c, i) => `
-        <div class="grade-chip"><div class="yr">${GRADE_YEARS[i] || `N${i + 1}`}</div><div class="gv">${g(c)}</div></div>`).join('');
-
-            const perfs = (d.academicPerformances || []).map((c, i) => `
-        <div class="grade-chip"><div class="yr">${GRADE_YEARS[i] || `N${i + 1}`}</div><div class="gv">${g(c)}</div></div>`).join('');
-
-            const subjects = (d.subjects || []).map(s => `<span class="tag">${s.name}</span>`).join('');
-
-            const electives = (d.electives || []).map(e => `
-        <div class="elective">
-            <div class="el-lvl">Nguyện vọng ${e.level}</div>
-            <div class="el-name">${e.name}</div>
-        </div>`).join('');
-
-            const hasPassed = d.passedClass && d.passedClass.trim();
-            const bannerHtml = hasPassed
-                ? `<div class="result-banner dau">
-                    <div class="rb-icon">🎉</div>
-                    <div class="rb-text">
-                        <div class="rb-label">Kết quả tuyển sinh</div>
-                        <div class="rb-main">ĐẬU – ${d.passedClass}</div>
-                        ${d.passedScore ? `<div class="rb-score">Điểm: ${d.passedScore}</div>` : ''}
+                <!-- thông tin cá nhân -->
+                <section class="section">
+                    <h3 class="section-title">Thông tin cá nhân</h3>
+                    <div class="info-grid">
+                        <div class="info-item"><label>Họ và tên</label>
+                            <div class="val" id="infoName"></div>
+                        </div>
+                        <div class="info-item"><label>Giới tính</label>
+                            <div class="val" id="infoGender"></div>
+                        </div>
+                        <div class="info-item"><label>Ngày sinh</label>
+                            <div class="val" id="infoDob"></div>
+                        </div>
+                        <div class="info-item"><label>Số CCCD</label>
+                            <div class="val" id="infoCCCD"></div>
+                        </div>
+                        <div class="info-item"><label>Số điện thoại</label>
+                            <div class="val" id="infoPhone"></div>
+                        </div>
+                        <div class="info-item"><label>Email</label>
+                            <div class="val" id="infoEmail"></div>
+                        </div>
+                        <div class="info-item" style="grid-column:1/-1">
+                            <label>Nơi sinh</label>
+                            <div class="val" id="infoBirthPlace"></div>
+                        </div>
                     </div>
-                  </div>`
-                : `<div class="result-banner pending">
-                    <div class="rb-icon">⏳</div>
-                    <div class="rb-text">
-                        <div class="rb-label">Kết quả tuyển sinh</div>
-                        <div class="rb-main">Chưa có kết quả</div>
+                </section>
+
+                <!-- trường THCS -->
+                <section class="section">
+                    <h3 class="section-title">Trường THCS</h3>
+                    <div class="info-grid">
+                        <div class="info-item"><label>Tên trường</label>
+                            <div class="val" id="infoSchoolName"></div>
+                        </div>
+                        <div class="info-item" style="grid-column:1/-1">
+                            <label>Địa chỉ</label>
+                            <div class="val" id="infoSchoolAddr"></div>
+                        </div>
                     </div>
-                  </div>`;
+                </section>
 
-            return `
-        <div class="profile-header">
-            ${imgHtml}
-            <div class="profile-info">
-                <h2>${d.lastName || ''} ${d.firstName || ''}</h2>
-                <div class="reg">Số báo danh: <strong>${d.registrationCode}</strong></div>
-                <div class="reg">CCCD: <strong>${d.identify}</strong></div>
-                <span class="badge ${badgeClass(d.applicationStatus)}">${status(d.applicationStatus)}</span>
-            </div>
-        </div>
-        ${bannerHtml}
-        <div class="result-body">
-            <div class="section">
-                <div class="section-title">Thông tin cá nhân</div>
-                <div class="info-grid">
-                    <div class="info-item"><label>Họ và tên</label><div class="val">${d.lastName || ''} ${d.firstName || ''}</div></div>
-                    <div class="info-item"><label>Giới tính</label><div class="val">${gender(d.gender)}</div></div>
-                    <div class="info-item"><label>Ngày sinh</label><div class="val">${d.dateString || fmtDate(d.birthDate)}</div></div>
-                    <div class="info-item"><label>Số CCCD</label><div class="val">${d.identify || '—'}</div></div>
-                    <div class="info-item"><label>Số điện thoại</label><div class="val">${d.phoneNumber || '—'}</div></div>
-                    <div class="info-item"><label>Email</label><div class="val">${d.email || '—'}</div></div>
-                    <div class="info-item" style="grid-column:1/-1"><label>Nơi sinh</label><div class="val">${addr(d.birthPlace)}</div></div>
-                </div>
-            </div>
+                <!-- hạnh kiểm -->
+                <section class="section" id="sectionConducts">
+                    <h3 class="section-title">Hạnh kiểm</h3>
+                    <div class="grade-row" id="conductsList"></div>
+                </section>
 
-            <div class="section">
-                <div class="section-title">Trường THCS</div>
-                <div class="info-grid">
-                    <div class="info-item"><label>Tên trường</label><div class="val">${d.middleSchoolName || '—'}</div></div>
-                    <div class="info-item" style="grid-column:1/-1"><label>Địa chỉ</label><div class="val">${addr(d.middleSchoolAddress)}</div></div>
-                </div>
-            </div>
+                <!-- học lực -->
+                <section class="section" id="sectionPerfs">
+                    <h3 class="section-title">Học lực</h3>
+                    <div class="grade-row" id="perfsList"></div>
+                </section>
 
-            ${conducts ? `<div class="section">
-                <div class="section-title">Hạnh kiểm</div>
-                <div class="grade-row">${conducts}</div>
-            </div>` : ''}
+                <!-- môn thi -->
+                <section class="section" id="sectionSubjects">
+                    <h3 class="section-title">Môn thi</h3>
+                    <div id="subjectsList"></div>
+                </section>
 
-            ${perfs ? `<div class="section">
-                <div class="section-title">Học lực</div>
-                <div class="grade-row">${perfs}</div>
-            </div>` : ''}
+                <!-- nguyện vọng -->
+                <section class="section" id="sectionElectives">
+                    <h3 class="section-title">Nguyện vọng chuyên</h3>
+                    <div id="electivesList"></div>
+                </section>
 
-            ${subjects ? `<div class="section">
-                <div class="section-title">Môn thi</div>
-                <div>${subjects}</div>
-            </div>` : ''}
+                <!-- điểm thi -->
+                <section class="section" id="sectionScores">
+                    <h3 class="section-title">Điểm thi từng môn</h3>
+                    <table class="score-table">
+                        <thead>
+                            <tr>
+                                <th>Môn thi</th>
+                                <th>Điểm</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scoresList"></tbody>
+                    </table>
+                </section>
 
-            ${electives ? `<div class="section">
-                <div class="section-title">Nguyện vọng chuyên</div>
-                ${electives}
-            </div>` : ''}
+                <!-- lệ phí -->
+                <section class="section">
+                    <h3 class="section-title">Lệ phí thi</h3>
+                    <div class="fee-row">
+                        <span class="fl">Đã thanh toán</span>
+                        <span class="fee-amount fee-paid" id="feePaid"></span>
+                    </div>
+                    <div class="fee-row">
+                        <span class="fl">Còn lại</span>
+                        <span class="fee-amount fee-pending" id="feePending"></span>
+                    </div>
+                </section>
 
-            <div class="section">
-                <div class="section-title">Lệ phí thi</div>
-                <div class="fee-row">
-                    <span class="fl">Đã thanh toán</span>
-                    <span class="fee-amount fee-paid">${money((d.totalPaidFee || 0) / 100)}</span>
-                </div>
-                <div class="fee-row">
-                    <span class="fl">Còn lại</span>
-                    <span class="fee-amount fee-pending">${money((d.totalPendingFee || 0) / 100)}</span>
-                </div>
-            </div>
-        </div>
-    `;
-        }
+            </div><!-- /.result-body -->
+        </div><!-- /#resultCard -->
 
-        document.getElementById('searchForm').addEventListener('submit', async e => {
-            e.preventDefault();
-            const cccd = document.getElementById('cccd').value.trim();
-            const regCode = document.getElementById('regCode').value.trim();
-            const errBox = document.getElementById('errorBox');
-            const spinner = document.getElementById('spinner');
-            const result = document.getElementById('resultCard');
-            const btn = document.getElementById('submitBtn');
+    </main>
 
-            errBox.style.display = 'none';
-            result.style.display = 'none';
-
-            if (!cccd || !regCode) {
-                errBox.textContent = 'Vui lòng nhập đầy đủ số CCCD và số báo danh.';
-                errBox.style.display = 'block';
-                return;
-            }
-
-            spinner.style.display = 'block';
-            btn.disabled = true;
-
-            try {
-                const url = `https://tuyensinh-backend.ptnk.edu.vn/api/v1/students/${encodeURIComponent(cccd)}?registrationCode=${encodeURIComponent(regCode)}`;
-                const json = await fetchData(url);
-
-                if (!json?.data) throw new Error('Không tìm thấy thông tin thí sinh. Kiểm tra lại số báo danh và CCCD.');
-
-                result.innerHTML = render(json.data);
-                result.style.display = 'block';
-                result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } catch (err) {
-                errBox.textContent = err.message || 'Có lỗi xảy ra. Vui lòng thử lại.';
-                errBox.style.display = 'block';
-            } finally {
-                spinner.style.display = 'none';
-                btn.disabled = false;
-            }
-        });
-    </script>
+    <script type="module" src="app.js"></script>
 </body>
 
 </html>
