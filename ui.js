@@ -34,7 +34,7 @@ const cloneTemplate = id => el(id).content.cloneNode(true);
 // ── RESULT CARD ──────────────────────────────────────────────────
 export function populateResult(d, scores) {
     populateProfile(d);
-    populateBanner(d);
+    populateBanner(d, scores);
     populateInfo(d);
     populateGradeChips('conductsList', 'sectionConducts', d.conducts);
     populateGradeChips('perfsList', 'sectionPerfs', d.academicPerformances);
@@ -67,7 +67,12 @@ function populateProfile(d) {
     );
 }
 
-function populateBanner(d) {
+function hasAnyScore(scores) {
+    if (!Array.isArray(scores) || !scores.length) return false;
+    return scores.some(s => { const v = parseFloat(s.score); return !isNaN(v) && v !== 0; });
+}
+
+function populateBanner(d, scores) {
     el('bannerDau').hidden = el('bannerRot').hidden = el('bannerPending').hidden = true;
     if (d.passedClass?.trim()) {
         el('bannerDau').querySelector('.rb-class').textContent = `ĐẬU – ${d.passedClass}`;
@@ -75,6 +80,8 @@ function populateBanner(d) {
         scoreEl.textContent = d.passedScore ? `Điểm: ${d.passedScore}` : '';
         scoreEl.hidden = !d.passedScore;
         el('bannerDau').hidden = false;
+    } else if (hasAnyScore(scores)) {
+        el('bannerRot').hidden = false;
     } else {
         el('bannerPending').hidden = false;
     }
@@ -144,19 +151,32 @@ function populateElectives(electives) {
 }
 
 function populateScores(scores) {
-    const list = el('scoresList');
+    const list    = el('scoresList');
     const section = el('sectionScores');
+    const inline  = el('inlineScores');
     list.innerHTML = '';
+    inline.innerHTML = '';
+
     if (Array.isArray(scores) && scores.length) {
         scores.forEach(s => {
+            const name  = s.subjectName || s.name || s.subject || '—';
+            const value = s.score ?? s.point ?? '—';
+
             const frag = cloneTemplate('tpl-score-row');
-            frag.querySelector('.sn').textContent = s.subjectName || s.name || s.subject || '—';
-            frag.querySelector('.sv').textContent = s.score ?? s.point ?? '—';
+            frag.querySelector('.sn').textContent = name;
+            frag.querySelector('.sv').textContent = value;
             list.appendChild(frag);
+
+            const chip = document.createElement('div');
+            chip.className = 'inline-score-chip';
+            chip.innerHTML = `<span class="isc-name">${name}</span><span class="isc-val">${value}</span>`;
+            inline.appendChild(chip);
         });
         section.hidden = false;
+        inline.hidden  = false;
     } else {
         section.hidden = true;
+        inline.hidden  = true;
     }
 }
 
