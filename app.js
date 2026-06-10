@@ -28,14 +28,12 @@ function updateApiUrls() {
     const box     = document.getElementById('apiUrls');
     if (!cccd || !regCode) { box.hidden = true; return; }
 
-    const sUrl  = buildStudentUrl(cccd, regCode);
-    const scUrl = buildScoresUrl(cccd);
-    const setLink = (id, url) => {
-        document.getElementById(id).href        = url;
-        document.getElementById(id).textContent = url;
-    };
-    setLink('urlStudent', sUrl);
-    setLink('urlScores',  scUrl);
+    const sUrl = buildStudentUrl(cccd, regCode);
+    const urlStudentEl = document.getElementById('urlStudent');
+    urlStudentEl.href        = sUrl;
+    urlStudentEl.textContent = sUrl;
+    // scores URL cần studentId (UUID) — chỉ có sau fetch, ẩn cho đến lúc đó
+    document.getElementById('urlScores').closest('.api-url-item').hidden = true;
     box.hidden = false;
 }
 
@@ -78,9 +76,16 @@ document.getElementById('searchForm').addEventListener('submit', async e => {
         const student = json.data;
         let   scores  = null;
 
+        // cập nhật scores URL preview với studentId thực
+        const scUrl = buildScoresUrl(student.id);
+        const urlScoresEl = document.getElementById('urlScores');
+        urlScoresEl.href        = scUrl;
+        urlScoresEl.textContent = scUrl;
+        urlScoresEl.closest('.api-url-item').hidden = false;
+
         if (student.passedClass?.trim() || student.passedScore !== null) {
             try {
-                const scoresJson = await fetchData(buildScoresUrl(cccd));
+                const scoresJson = await fetchData(buildScoresUrl(student.id));
                 scores = scoresJson?.data ?? null;
             } catch {
                 // swallow scores error — result card still shows without subject scores

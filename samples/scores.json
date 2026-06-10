@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "subjectID": "f100a58e-3922-4efd-a25f-79a74936debd",
+            "subjectName": "Ngữ Văn(không chuyên)",
+            "score": "6.5"
+        },
+        {
+            "subjectID": "2fca9f6c-d614-4044-9430-f63551d0244f",
+            "subjectName": "Tiếng Anh(không chuyên)",
+            "score": "6.7"
+        },
+        {
+            "subjectID": "be52ac2d-7717-4006-b499-69726589e4a2",
+            "subjectName": "Toán(không chuyên)",
+            "score": "5.85"
+        },
+        {
+            "subjectID": "ad01c52c-4a82-47c9-90e7-5f28f1277fd6",
+            "subjectName": "Sinh học",
+            "score": "5"
+        }
+    ]
+}

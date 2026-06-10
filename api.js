@@ -31,5 +31,5 @@ export async function fetchData(url, signal) {
 export const buildStudentUrl = (cccd, regCode) =>
     `${BASE}/students/${encodeURIComponent(cccd)}?registrationCode=${encodeURIComponent(regCode)}`;
 
-export const buildScoresUrl = (cccd) =>
-    `${BASE}/students/${encodeURIComponent(cccd)}/scores`;
+export const buildScoresUrl = (studentId) =>
+    `${BASE}/students/${encodeURIComponent(studentId)}/scores`;

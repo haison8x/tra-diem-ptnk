@@ -1,0 +1,91 @@
+{
+    "data": {
+        "id": "708c8c29-d038-4eed-b8b1-0ca43961d571",
+        "createdAt": "2026-05-06T05:17:14.982886Z",
+        "updatedAt": "2026-05-06T05:18:47.42192Z",
+        "identify": "074311006611",
+        "firstName": "Mi",
+        "lastName": "Nguyễn Ngọc Hà",
+        "gender": "female",
+        "email": "phuongnt16@bidv.com.vn",
+        "imageUrl": "https://firebasestorage.googleapis.com/v0/b/ptnkts26.firebasestorage.app/o/media%2F1778044345067_b1.jpg?alt=media&token=44b61443-2677-436a-a718-292870a00d00",
+        "birthDate": "2011-12-14T17:00:00Z",
+        "birthPlace": {
+            "province": {
+                "code": "74",
+                "fullName": "Tỉnh Bình Dương"
+            },
+            "district": {
+                "code": "",
+                "fullName": ""
+            },
+            "ward": {
+                "code": "",
+                "fullName": ""
+            }
+        },
+        "phoneNumber": "0916230986",
+        "middleSchoolAddress": {
+            "province": {
+                "code": "79",
+                "fullName": "Thành phố Hồ Chí Minh"
+            },
+            "district": {
+                "code": "",
+                "fullName": "13 Âu Cơ, Phường Thủ Dầu Một, Thành Phố Hồ Chí Minh"
+            },
+            "ward": {
+                "code": "",
+                "fullName": ""
+            }
+        },
+        "middleSchoolName": "THCS Chu Văn An",
+        "conducts": [
+            "good",
+            "good",
+            "good",
+            "good"
+        ],
+        "academicPerformances": [
+            "good",
+            "good",
+            "good",
+            "good"
+        ],
+        "registrationCode": "262466",
+        "applicationStatus": "registered",
+        "dateString": "15/12/2011",
+        "totalPaidFee": 70000000,
+        "totalPendingFee": 0,
+        "subjects": [
+            {
+                "id": "f100a58e-3922-4efd-a25f-79a74936debd",
+                "name": "Ngữ Văn(không chuyên)"
+            },
+            {
+                "id": "2fca9f6c-d614-4044-9430-f63551d0244f",
+                "name": "Tiếng Anh(không chuyên)"
+            },
+            {
+                "id": "be52ac2d-7717-4006-b499-69726589e4a2",
+                "name": "Toán(không chuyên)"
+            },
+            {
+                "id": "ad01c52c-4a82-47c9-90e7-5f28f1277fd6",
+                "name": "Sinh học"
+            }
+        ],
+        "electives": [
+            {
+                "id": "17f83842-089f-4dbc-b8d8-6156f065880b",
+                "name": "Chuyên Sinh",
+                "level": 1
+            },
+            {
+                "id": "843e0d84-9bab-4d62-a524-685d9441b4d2",
+                "name": "Chuyên Sinh-LN (TH4)",
+                "level": 2
+            }
+        ]
+    }
+}
