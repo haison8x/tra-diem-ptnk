@@ -38,9 +38,8 @@ export function populateResult(d, scores) {
     populateInfo(d);
     populateGradeChips('conductsList', 'sectionConducts', d.conducts);
     populateGradeChips('perfsList', 'sectionPerfs', d.academicPerformances);
-    populateSubjects(d.subjects);
     populateElectives(d.electives);
-    populateScores(scores);
+    populateScores(scores, d.subjects);
     el('feePaid').textContent = fmtMoney((d.totalPaidFee || 0) / 100);
     el('feePending').textContent = fmtMoney((d.totalPendingFee || 0) / 100);
 }
@@ -116,22 +115,6 @@ function populateGradeChips(listId, sectionId, items) {
     }
 }
 
-function populateSubjects(subjects) {
-    const list = el('subjectsList');
-    const section = el('sectionSubjects');
-    list.innerHTML = '';
-    if (subjects?.length) {
-        subjects.forEach(s => {
-            const span = document.createElement('span');
-            span.className = 'tag';
-            span.textContent = s.name;
-            list.appendChild(span);
-        });
-        section.hidden = false;
-    } else {
-        section.hidden = true;
-    }
-}
 
 function populateElectives(electives) {
     const list = el('electivesList');
@@ -150,34 +133,24 @@ function populateElectives(electives) {
     }
 }
 
-function populateScores(scores) {
-    const list    = el('scoresList');
-    const section = el('sectionScores');
-    const inline  = el('inlineScores');
-    list.innerHTML = '';
+function populateScores(scores, subjects) {
+    const inline = el('inlineScores');
     inline.innerHTML = '';
 
-    if (Array.isArray(scores) && scores.length) {
-        scores.forEach(s => {
-            const name  = s.subjectName || s.name || s.subject || '—';
-            const value = s.score ?? s.point ?? '—';
+    const hasScores = Array.isArray(scores) && scores.length;
+    const items = hasScores
+        ? scores.map(s => ({ name: s.subjectName || s.name || '—', value: s.score ?? s.point ?? 'N/A' }))
+        : (subjects || []).map(s => ({ name: s.name || '—', value: 'N/A' }));
 
-            const frag = cloneTemplate('tpl-score-row');
-            frag.querySelector('.sn').textContent = name;
-            frag.querySelector('.sv').textContent = value;
-            list.appendChild(frag);
+    if (!items.length) { inline.hidden = true; return; }
 
-            const chip = document.createElement('div');
-            chip.className = 'inline-score-chip';
-            chip.innerHTML = `<span class="isc-name">${name}</span><span class="isc-val">${value}</span>`;
-            inline.appendChild(chip);
-        });
-        section.hidden = false;
-        inline.hidden  = false;
-    } else {
-        section.hidden = true;
-        inline.hidden  = true;
-    }
+    items.forEach(({ name, value }) => {
+        const chip = document.createElement('div');
+        chip.className = 'inline-score-chip';
+        chip.innerHTML = `<span class="isc-name">${name}</span><span class="isc-val">${value}</span>`;
+        inline.appendChild(chip);
+    });
+    inline.hidden = false;
 }
 
 // ── STAGE STATUS ─────────────────────────────────────────────────
