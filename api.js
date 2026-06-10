@@ -19,8 +19,8 @@ function parseServerError(body, status) {
     return HTTP_ERRORS[status] || null;
 }
 
-export async function fetchData(url) {
-    const r    = await fetch(url);
+export async function fetchData(url, signal) {
+    const r    = await fetch(url, signal ? { signal } : undefined);
     const body = await r.json().catch(() => null);
     const msg  = parseServerError(body, r.status);
     if (msg) throw new Error(msg);
