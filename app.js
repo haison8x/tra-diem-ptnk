@@ -5,6 +5,22 @@ import { startPolling } from './poll.js';
 // expose for inline onclick in HTML
 window.closeAnnouncement = closeAnnouncement;
 
+// ── COOKIES ──────────────────────────────────────────────────────
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 năm
+function setCookie(name, value) {
+    document.cookie = `${name}=${encodeURIComponent(value)};max-age=${COOKIE_MAX_AGE};path=/;SameSite=Lax`;
+}
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : '';
+}
+
+// pre-fill từ cookie
+const savedCccd    = getCookie('ptnk_cccd');
+const savedRegCode = getCookie('ptnk_regCode');
+document.getElementById('cccd').value    = savedCccd    || '074311006619';
+document.getElementById('regCode').value = savedRegCode || '262469';
+
 // ── API URL PREVIEW ──────────────────────────────────────────────
 function updateApiUrls() {
     const cccd    = document.getElementById('cccd').value.trim();
@@ -48,6 +64,9 @@ document.getElementById('searchForm').addEventListener('submit', async e => {
         errBox.hidden = false;
         return;
     }
+
+    setCookie('ptnk_cccd', cccd);
+    setCookie('ptnk_regCode', regCode);
 
     spinner.style.display = 'block';
     btn.disabled = true;
