@@ -114,6 +114,7 @@ function renderHistory() {
                 fillForm(e.cccd, e.regCode);
                 box.hidden = true;
                 btn.classList.remove('active');
+                document.getElementById('searchForm').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
             });
             item.querySelector('.history-del-btn').addEventListener('click', ev => {
                 ev.stopPropagation();
