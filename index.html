@@ -74,7 +74,10 @@
                         <input type="text" id="regCode" placeholder="VD: 262466" maxlength="10" autocomplete="off">
                     </div>
                 </div>
-                <button type="submit" id="submitBtn">Tra cứu</button>
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn">Tra cứu</button>
+                    <button type="button" id="historyToggleBtn" class="history-toggle-btn">🕓 Lịch sử</button>
+                </div>
             </form>
             <div id="apiUrls" class="api-urls" hidden>
                 <div class="api-url-item">
@@ -87,6 +90,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- history -->
+        <div id="historyBox"></div>
 
         <div class="error-box" id="errorBox" hidden></div>
         <div class="spinner" id="spinner"><span class="spin"></span>Đang tải thông tin...</div>

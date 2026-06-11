@@ -2,24 +2,24 @@
 // môn chuyên của từng tổ hợp (từ config API)
 const TO_HOP_MAP = {
     TH1: 'Toán chuyên',
-    TH2: 'Vật lý chuyên',
-    TH3: 'Hóa học chuyên',
-    TH4: 'Sinh học chuyên',
-    TH5: 'Tin học chuyên',
-    TH6: 'Ngữ văn chuyên',
-    TH7: 'Tiếng Anh chuyên',
+    TH2: 'Lý chuyên',
+    TH3: 'Hóa chuyên',
+    TH4: 'Sinh chuyên',
+    TH5: 'Tin chuyên',
+    TH6: 'Văn chuyên',
+    TH7: 'Anh chuyên',
 };
 
 // Tính tổng điểm từng tổ hợp: 3 môn không chuyên + môn chuyên × 2
 function computeToHopTotals(scores) {
     const khongChuyen = scores.filter(s => s.subjectName.includes('(không chuyên)'));
-    const chuyen      = scores.filter(s => !s.subjectName.includes('(không chuyên)'));
+    const chuyen = scores.filter(s => !s.subjectName.includes('(không chuyên)'));
     const sumKC = khongChuyen.reduce((acc, s) => acc + (parseFloat(s.score) || 0), 0);
 
     return chuyen.flatMap(s => {
         const nameLower = s.subjectName.toLowerCase();
         const entry = Object.entries(TO_HOP_MAP).find(([, mon]) =>
-            mon.replace(/ chuyên$/i, '').toLowerCase() === nameLower
+            nameLower.includes(mon.replace(/ chuyên$/i, '').toLowerCase())
         );
         if (!entry) return [];
         const [th, monChuyen] = entry;

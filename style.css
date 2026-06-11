@@ -294,9 +294,14 @@ input:focus {
     border-color: #003b82;
 }
 
-button[type=submit] {
-    width: 100%;
+.form-actions {
+    display: flex;
+    gap: 10px;
     margin-top: 18px;
+}
+
+button[type=submit] {
+    flex: 1;
     padding: 12px;
     background: #003b82;
     color: white;
@@ -308,6 +313,26 @@ button[type=submit] {
     transition: background 0.2s;
 }
 
+.history-toggle-btn {
+    padding: 12px 16px;
+    background: #f0f4ff;
+    color: #003b82;
+    border: 1.5px solid #c8d8ff;
+    border-radius: 7px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.history-toggle-btn:hover,
+.history-toggle-btn.active {
+    background: #003b82;
+    color: white;
+    border-color: #003b82;
+}
+
 button[type=submit]:hover:not(:disabled) {
     background: #00234e;
 }
@@ -316,6 +341,101 @@ button[type=submit]:disabled {
     background: #9aaecc;
     cursor: not-allowed;
 }
+
+/* ── HISTORY ── */
+#historyBox {
+    margin-bottom: 18px;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.history-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #aaa;
+}
+
+.history-clear-btn {
+    font-size: 0.75rem;
+    color: #c0392b;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.history-clear-btn:hover { background: #fff0f0; }
+
+.history-empty {
+    text-align: center;
+    color: #aaa;
+    font-size: 0.88rem;
+    padding: 14px 0;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.history-item:hover { background: #f5f8ff; }
+
+.history-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.history-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-meta {
+    font-size: 0.76rem;
+    color: #999;
+}
+
+.history-del-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.history-del-btn:hover { background: #fee2e2; color: #c0392b; }
 
 .error-box {
     background: #fff0f0;
