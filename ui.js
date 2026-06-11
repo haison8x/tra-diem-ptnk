@@ -1,3 +1,33 @@
+// ── CONFIG ────────────────────────────────────────────────────────
+// môn chuyên của từng tổ hợp (từ config API)
+const TO_HOP_MAP = {
+    TH1: 'Toán chuyên',
+    TH2: 'Vật lý chuyên',
+    TH3: 'Hóa học chuyên',
+    TH4: 'Sinh học chuyên',
+    TH5: 'Tin học chuyên',
+    TH6: 'Ngữ văn chuyên',
+    TH7: 'Tiếng Anh chuyên',
+};
+
+// Tính tổng điểm từng tổ hợp: 3 môn không chuyên + môn chuyên × 2
+function computeToHopTotals(scores) {
+    const khongChuyen = scores.filter(s => s.subjectName.includes('(không chuyên)'));
+    const chuyen      = scores.filter(s => !s.subjectName.includes('(không chuyên)'));
+    const sumKC = khongChuyen.reduce((acc, s) => acc + (parseFloat(s.score) || 0), 0);
+
+    return chuyen.flatMap(s => {
+        const nameLower = s.subjectName.toLowerCase();
+        const entry = Object.entries(TO_HOP_MAP).find(([, mon]) =>
+            mon.replace(/ chuyên$/i, '').toLowerCase() === nameLower
+        );
+        if (!entry) return [];
+        const [th, monChuyen] = entry;
+        const total = sumKC + (parseFloat(s.score) || 0) * 2;
+        return [{ th, monChuyen, total }];
+    });
+}
+
 // ── FORMAT HELPERS ───────────────────────────────────────────────
 const GRADE_MAP = { excellent: 'Xuất sắc', good: 'Tốt', average: 'Khá', poor: 'Yếu' };
 const GRADE_YEARS = ['Lớp 6', 'Lớp 7', 'Lớp 8', 'Lớp 9'];
@@ -144,12 +174,33 @@ function populateScores(scores, subjects) {
 
     if (!items.length) { inline.hidden = true; return; }
 
+    if (hasScores) {
+        const totals = computeToHopTotals(scores);
+        if (totals.length) {
+            const row = document.createElement('div');
+            row.className = 'isc-row';
+            row.innerHTML = '<span class="isc-row-label">Tổng điểm tổ hợp</span>';
+            totals.forEach(({ th, monChuyen, total }) => {
+                const chip = document.createElement('div');
+                chip.className = 'inline-score-chip combo';
+                chip.innerHTML = `<span class="isc-name">${th} – ${monChuyen}</span><span class="isc-val">${total % 1 === 0 ? total : total.toFixed(2)}</span>`;
+                row.appendChild(chip);
+            });
+            inline.appendChild(row);
+        }
+    }
+
+    const row = document.createElement('div');
+    row.className = 'isc-row';
+    row.innerHTML = '<span class="isc-row-label">Điểm thành phần</span>';
     items.forEach(({ name, value }) => {
         const chip = document.createElement('div');
         chip.className = 'inline-score-chip';
         chip.innerHTML = `<span class="isc-name">${name}</span><span class="isc-val">${value}</span>`;
-        inline.appendChild(chip);
+        row.appendChild(chip);
     });
+    inline.appendChild(row);
+
     inline.hidden = false;
 }
 
@@ -173,6 +224,8 @@ export function updateStageUI(published) {
 
 // ── ANNOUNCEMENT ─────────────────────────────────────────────────
 export function showAnnouncement() {
+    if (document.cookie.includes('ptnk_announced=1')) return;
+    document.cookie = 'ptnk_announced=1;max-age=31536000;path=/;SameSite=Lax';
     spawnConfetti();
     el('overlay').classList.add('show');
 }

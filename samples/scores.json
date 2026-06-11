@@ -19,6 +19,11 @@
             "subjectID": "ad01c52c-4a82-47c9-90e7-5f28f1277fd6",
             "subjectName": "Sinh học",
             "score": "5"
+        },
+        {
+            "subjectID": "0c5bae92-8751-4aad-bc99-bf2d047742d8",
+            "subjectName": "Ngữ Văn",
+            "score": "4.5"
         }
     ]
 }

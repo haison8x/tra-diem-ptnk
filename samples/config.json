@@ -1,0 +1,90 @@
+{
+    "danh_sach_lop": [
+        {
+            "ten_lop": "Toán",
+            "to_hop_thi": "TH1"
+        },
+        {
+            "ten_lop": "Lý",
+            "to_hop_thi": "TH2 / TH1"
+        },
+        {
+            "ten_lop": "Hóa",
+            "to_hop_thi": "TH3"
+        },
+        {
+            "ten_lop": "Sinh",
+            "to_hop_thi": "TH4"
+        },
+        {
+            "ten_lop": "Tin",
+            "to_hop_thi": "TH5 / TH1"
+        },
+        {
+            "ten_lop": "Ngữ văn",
+            "to_hop_thi": "TH6"
+        },
+        {
+            "ten_lop": "Tiếng Anh",
+            "to_hop_thi": "TH7"
+        },
+        {
+            "ten_lop": "Toán - LN",
+            "to_hop_thi": "TH1"
+        },
+        {
+            "ten_lop": "Lý - LN",
+            "to_hop_thi": "TH2 / TH1"
+        },
+        {
+            "ten_lop": "Hóa - LN",
+            "to_hop_thi": "TH3 / TH1"
+        },
+        {
+            "ten_lop": "Sinh - LN",
+            "to_hop_thi": "TH4 / TH1"
+        },
+        {
+            "ten_lop": "Tin - LN",
+            "to_hop_thi": "TH5 / TH1"
+        },
+        {
+            "ten_lop": "Ngữ văn - LN",
+            "to_hop_thi": "TH6"
+        },
+        {
+            "ten_lop": "Tiếng Anh - LN",
+            "to_hop_thi": "TH7"
+        }
+    ],
+    "danh_sach_to_hop": [
+        {
+            "to_hop_thi": "TH1",
+            "mon_chuyen": "Toán chuyên"
+        },
+        {
+            "to_hop_thi": "TH2",
+            "mon_chuyen": "Vật lý chuyên"
+        },
+        {
+            "to_hop_thi": "TH3",
+            "mon_chuyen": "Hóa học chuyên"
+        },
+        {
+            "to_hop_thi": "TH4",
+            "mon_chuyen": "Sinh học chuyên"
+        },
+        {
+            "to_hop_thi": "TH5",
+            "mon_chuyen": "Tin học chuyên"
+        },
+        {
+            "to_hop_thi": "TH6",
+            "mon_chuyen": "Ngữ văn chuyên"
+        },
+        {
+            "to_hop_thi": "TH7",
+            "mon_chuyen": "Tiếng Anh chuyên"
+        }
+    ]
+}

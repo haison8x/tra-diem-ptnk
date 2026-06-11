@@ -618,9 +618,25 @@ button[type=submit]:disabled {
 /* inline scores (below banner) */
 .inline-scores {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: column;
+    gap: 10px;
     margin: 0 28px 20px;
+}
+
+.isc-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.isc-row-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #aaa;
+    width: 100%;
 }
 
 .inline-score-chip {
@@ -646,6 +662,22 @@ button[type=submit]:disabled {
     font-weight: 800;
     font-size: 1.1rem;
     color: #003b82;
+}
+
+.inline-score-chip.combo {
+    background: #fffbeb;
+    border-color: #f59e0b;
+    min-width: 120px;
+}
+
+.inline-score-chip.combo .isc-name {
+    color: #92400e;
+    font-weight: 700;
+}
+
+.inline-score-chip.combo .isc-val {
+    color: #b45309;
+    font-size: 1.25rem;
 }
 
 @media (max-width: 480px) {
