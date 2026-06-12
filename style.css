@@ -35,43 +35,6 @@ body {
     margin-top: 4px;
 }
 
-#pollChip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-#pollChip .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #fcd34d;
-    animation: blink 1.2s ease-in-out infinite;
-}
-
-#pollChip.announced .dot {
-    background: #6ee7b7;
-    animation: none;
-}
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1
-    }
-
-    50% {
-        opacity: 0.2
-    }
-}
 
 /* ── ANNOUNCEMENT OVERLAY ── */
 #overlay {
@@ -205,46 +168,6 @@ body {
 }
 .api-url-link:hover { text-decoration: underline; }
 
-/* ── STAGE STATUS ── */
-.stage-status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    background: white;
-    border-radius: 10px;
-    padding: 13px 18px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 14px;
-    font-size: 0.88rem;
-}
-
-.stage-status.not-published {
-    border-left: 4px solid #f59e0b;
-}
-
-.stage-status.published {
-    border-left: 4px solid #16a34a;
-}
-
-#stageText {
-    font-weight: 700;
-    flex: 1;
-}
-
-#stageUpdated {
-    color: #999;
-    font-size: 0.8rem;
-    white-space: nowrap;
-}
-#stageUpdated.flash {
-    animation: tsFlash 0.6s ease forwards;
-}
-@keyframes tsFlash {
-    0%   { opacity: 0; transform: translateY(-4px) scale(0.95); color: #003b82; }
-    40%  { opacity: 1; transform: translateY(0)    scale(1.02); color: #003b82; }
-    100% { opacity: 1; transform: translateY(0)    scale(1);    color: #999; }
-}
 
 /* ── FORM ── */
 .container {

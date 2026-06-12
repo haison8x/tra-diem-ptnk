@@ -1,7 +1,5 @@
 import { fetchData, buildStudentUrl, buildScoresUrl } from './api.js';
 import { populateResult, closeAnnouncement } from './ui.js';
-import { startPolling } from './poll.js';
-
 // expose for inline onclick in HTML
 window.closeAnnouncement = closeAnnouncement;
 
@@ -141,8 +139,6 @@ document.getElementById('historyToggleBtn').addEventListener('click', () => {
 document.getElementById('historyBox').hidden = true;
 renderHistory(); // cập nhật badge
 
-// ── POLL ─────────────────────────────────────────────────────────
-startPolling();
 
 // ── SUBMIT ───────────────────────────────────────────────────────
 document.getElementById('searchForm').addEventListener('submit', async e => {

@@ -1,7 +1,5 @@
 export const BASE = 'https://tuyensinh-backend.ptnk.edu.vn/api/v1';
 
-let _scorePublished = false;
-export const setScorePublished = v => { _scorePublished = v; };
 
 const HTTP_ERRORS = {
     400: 'Máy chủ đang quá tải (400). Vui lòng thử lại sau ít phút.',

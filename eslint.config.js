@@ -15,6 +15,10 @@ export default [
                 Intl:          'readonly',
                 setInterval:   'readonly',
                 clearInterval: 'readonly',
+                localStorage:  'readonly',
+                Event:         'readonly',
+                AbortController: 'readonly',
+                setTimeout:    'readonly',
             },
         },
         rules: {

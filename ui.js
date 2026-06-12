@@ -51,11 +51,6 @@ export function fmtDate(iso) {
     return `${p(d.getUTCDate())}/${p(d.getUTCMonth() + 1)}/${d.getUTCFullYear()}`;
 }
 
-export function fmtNow() {
-    const d = new Date();
-    const p = n => String(n).padStart(2, '0');
-    return `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
-}
 
 // ── DOM HELPERS ──────────────────────────────────────────────────
 const el = id => document.getElementById(id);
@@ -202,24 +197,6 @@ function populateScores(scores, subjects) {
     inline.appendChild(row);
 
     inline.hidden = false;
-}
-
-// ── STAGE STATUS ─────────────────────────────────────────────────
-export function updateStageUI(published) {
-    const stageEl = el('stageStatus');
-    const updated = el('stageUpdated');
-
-    stageEl.hidden = false;
-    stageEl.className = `stage-status ${published ? 'published' : 'not-published'}`;
-    el('stageIcon').textContent = published ? '✅' : '⏳';
-    el('stageText').textContent = published
-        ? 'Đã có kết quả'
-        : 'Chưa có kết quả';
-
-    updated.textContent = `${fmtNow()}`;
-    updated.classList.remove('flash');
-    void updated.offsetWidth;
-    updated.classList.add('flash');
 }
 
 // ── ANNOUNCEMENT ─────────────────────────────────────────────────
